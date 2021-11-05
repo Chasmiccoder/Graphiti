@@ -23,4 +23,24 @@ document.getElementById('snap').addEventListener('click', ()=>{
 
 
 
+const imgData = context.getImageData( 0, 0, canvas.width, canvas.height);
+const data = imgData.data;
 
+// enumerate all pixels
+// each pixel's r,g,b,a datum are stored in separate sequential array elements
+
+
+// creating array to store pixel values
+var pixelData = new Array(data.length);
+
+for(let i = 0; i < data.length; i += 4) {
+  var red = data[i];
+  var green = data[i + 1];
+  var blue = data[i + 2];
+  var alpha = data[i + 3];
+
+  // creating array of pixel values
+  pixelData[i] = [red, green, blue, alpha];
+}
+
+// console.log(pixelData);
