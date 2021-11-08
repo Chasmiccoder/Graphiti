@@ -83,9 +83,7 @@ function showFile() {
 
 
 //////////////////
-// Uploading image to canvas without any manipulation
-
-
+//
 
 
 function convertToASCII(fileURL) {
@@ -114,6 +112,19 @@ function convertToASCII(fileURL) {
             data[i+1] = avg;
             data[i+2] = avg;
         }
+
+        // luminance index (with a blankspace at the end)
+        // 10 level luminance ramp @%#*+=-:. 
+        // 70 level luminance ramp $@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/|()1{}[]?-_+~<>i!lI;:,"^`\'. 
+
+
+        let lum = '$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/|()1{}[]?-_+~<>i!lI;:,\\"^`\'. ';
+
+        // let lum = '@%#*+=-:. ';
+
+        
+
+
         ctx.putImageData(imageData,0,0);
     
     
