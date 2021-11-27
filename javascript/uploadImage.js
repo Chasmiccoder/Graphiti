@@ -128,9 +128,6 @@ function convertToASCII(fileURL) {
             // data[i+1] = avg;
             // data[i+2] = avg;
 
-            // newImage.push(avg);
-            // newImage.push(avg);
-            // newImage.push(avg);
             newImage[i] = avg;
             newImage[i+1] = avg;
             newImage[i+2] = avg;
