@@ -64,7 +64,7 @@ function showFile() {
         let fileReader = new FileReader(); // converts the image to a data url
         fileReader.onload = ()=> {
             let fileURL = fileReader.result;
-            console.log(fileURL); // we get the image in base64 format [might need this later!]
+            // console.log(fileURL); // we get the image in base64 format [might need this later!]
             let imgTag = `<img src="${fileURL}" alt="uploaded image" id="uploadedImageID">`;
             dropArea.innerHTML = imgTag;
             
@@ -93,8 +93,8 @@ function convertToASCII(fileURL) {
     // img.src = fileURL;
 
     var imgTag = document.getElementById('uploadedImageID');
-    imgTag.style.height = '640px';
-    imgTag.style.width  = '480px';
+    // imgTag.style.height = '640px';
+    // imgTag.style.width  = '480px';
 
     var myCanvas = document.getElementById('ascii-area');
     var ctx = myCanvas.getContext('2d');
@@ -115,17 +115,26 @@ function convertToASCII(fileURL) {
         const imageData = ctx.getImageData(0,0,myCanvas.width,myCanvas.height );
         const data = imageData.data;
 
-        console.log("Without new lines, data len: ", data.length);
+        // var data = imageData.data;
+
+        // console.log("Without new lines, data len: ", data.length);
 
         // implement resize
+        var newImage = new Uint8ClampedArray(data.length);
         
         for(let i = 0; i < data.length; i+= 4) {
             var avg = (0.21*data[i] + 0.72*data[i+1] + 0.07*data[i+2]); // using proper grayscale weights
-            data[i] = avg;
-            data[i+1] = avg;
-            data[i+2] = avg;
+            // data[i] = avg;
+            // data[i+1] = avg;
+            // data[i+2] = avg;
 
-            
+            // newImage.push(avg);
+            // newImage.push(avg);
+            // newImage.push(avg);
+            newImage[i] = avg;
+            newImage[i+1] = avg;
+            newImage[i+2] = avg;
+            newImage[i+3] = data[i+3];
         }
 
         
@@ -148,8 +157,10 @@ function convertToASCII(fileURL) {
 
 
         
-
-
+        console.log("HERE:",data.stringify === newImage.stringify);
+        // imageData.data = newImage;
+        imageData.data.set(newImage);
+        // data = newImage;
         ctx.putImageData(imageData,0,0);
     
     
