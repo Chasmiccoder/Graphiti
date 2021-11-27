@@ -9,6 +9,7 @@ const input = dropArea.querySelector('input');
 // global var
 let file;
 
+
 button.onclick = ()=> {
     input.click(); // if the user clicks on the button, then the input field (that is hidden) also gets clicked
 };
@@ -105,9 +106,9 @@ function convertToASCII(fileURL) {
         // ctx.drawImage(img, 0, 0);
         const imageData = ctx.getImageData(0,0,myCanvas.width,myCanvas.height );
         const data = imageData.data;
-
+        
         for(let i = 0; i < data.length; i+= 4) {
-            var avg = (data[i] + data[i+1] + data[i+2]) / 3; // later on, use proper grayscale weights
+            var avg = (0.21*data[i] + 0.72*data[i+1] + 0.07*data[i+2]); // using proper grayscale weights
             data[i] = avg;
             data[i+1] = avg;
             data[i+2] = avg;
@@ -121,6 +122,14 @@ function convertToASCII(fileURL) {
         let lum = '$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/|()1{}[]?-_+~<>i!lI;:,\\"^`\'. ';
 
         // let lum = '@%#*+=-:. ';
+        // let lumLength = lum.length;
+
+        // for(let i = 0; i < data.length; i+=4) {
+        //     let lumIndex = Math.floor(data[i]/255)*lumLength;
+        //     
+        // }
+
+
 
         
 
@@ -131,12 +140,6 @@ function convertToASCII(fileURL) {
     };
 
 
-
-
-
-
     return fileURL;
 }
-
-
 
