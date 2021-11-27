@@ -48,3 +48,7 @@ https://www.youtube.com/watch?v=8K2ihr3NC40
 
 
 
+Resources:
+Test photo
+Photo by Sofia Rabassa from Pexels
+https://www.pexels.com/photo/turquoise-buggy-moving-along-street-with-pink-and-red-buildings-10305718/

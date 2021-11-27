@@ -64,10 +64,10 @@ function showFile() {
         let fileReader = new FileReader(); // converts the image to a data url
         fileReader.onload = ()=> {
             let fileURL = fileReader.result;
-            // console.log(fileURL); // we get the image in base64 format [might need this later!]
-            let imgTag = `<img src="${fileURL}" alt="uploaded image">`;
+            console.log(fileURL); // we get the image in base64 format [might need this later!]
+            let imgTag = `<img src="${fileURL}" alt="uploaded image" id="uploadedImageID">`;
             dropArea.innerHTML = imgTag;
-
+            
             let newImageURL = convertToASCII(fileURL);
             // let asciiImage = `<img src="${newImageURL}" alt="ascii image">`;
             // asciiArea.innerHTML = asciiImage;
@@ -92,6 +92,10 @@ function convertToASCII(fileURL) {
     // let img = new Image;
     // img.src = fileURL;
 
+    var imgTag = document.getElementById('uploadedImageID');
+    imgTag.style.height = '640px';
+    imgTag.style.width  = '480px';
+
     var myCanvas = document.getElementById('ascii-area');
     var ctx = myCanvas.getContext('2d');
 
@@ -99,6 +103,10 @@ function convertToASCII(fileURL) {
     img.crossOrigin = 'anonymous';
     img.src = fileURL;
 
+    // var target = new Image(); ///////////
+
+    
+    
     img.onload = function() {
         ctx.drawImage(img, 0,0); // offset at (0,0)
     
@@ -106,13 +114,21 @@ function convertToASCII(fileURL) {
         // ctx.drawImage(img, 0, 0);
         const imageData = ctx.getImageData(0,0,myCanvas.width,myCanvas.height );
         const data = imageData.data;
+
+        console.log("Without new lines, data len: ", data.length);
+
+        // implement resize
         
         for(let i = 0; i < data.length; i+= 4) {
             var avg = (0.21*data[i] + 0.72*data[i+1] + 0.07*data[i+2]); // using proper grayscale weights
             data[i] = avg;
             data[i+1] = avg;
             data[i+2] = avg;
+
+            
         }
+
+        
 
         // luminance index (with a blankspace at the end)
         // 10 level luminance ramp @%#*+=-:. 
