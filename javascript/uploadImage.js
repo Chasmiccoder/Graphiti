@@ -96,12 +96,16 @@ function convertToASCII(fileURL) {
         // 10 level luminance ramp @%#*+=-:. 
         
         // 70 level luminance ramp $@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/|()1{}[]?-_+~<>i!lI;:,"^`\'. 
-        let lum = '$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/|()1{}[]?-_+~<>i!lI;:,\\"^`\'. ';
+        // let lum = '$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/|()1{}[]?-_+~<>i!lI;:,\\"^`\'. ';
 
         // let lum = '@%#+=-. ';
+
+        let lum = '@#S%?*+;:,.'
         let lumLength = lum.length;
 
         var asciiStr = '';
+
+        let Line = '';
 
         for(let i = 0; i < data.length; i+= 4) {
             var avg = (0.21*data[i] + 0.72*data[i+1] + 0.07*data[i+2]); // using proper grayscale weights
@@ -109,16 +113,21 @@ function convertToASCII(fileURL) {
             data[i+1] = avg;
             data[i+2] = avg;
 
-            if(i % imageData.width == 0) {
-                asciiStr += "\n";
-            }
-            asciiStr += lum[ Math.floor(avg/(256/lumLength)) ];
+            Line += lum[ Math.floor(avg/(256/lumLength)) ];
+            Line += lum[ Math.floor(avg/(256/lumLength)) ];
+            Line += lum[ Math.floor(avg/(256/lumLength)) ];
 
-            
+            if(i % imageData.width == 0) {
+                Line += "\n";
+                asciiStr += Line;
+                Line = '';
+
+            }            
         }
 
         let outputPTag = document.getElementById('output');
         outputPTag.innerHTML = asciiStr;
+        outputPTag.style.font = 2;
         console.log(asciiStr);
 
         ctx.putImageData(imageData,0,0);
