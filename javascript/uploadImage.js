@@ -101,6 +101,11 @@ function convertToASCII(fileURL) {
         // let lum = '@%#+=-. ';
 
         let lum = '@#S%?*+;:,.'
+        let tmp = '';
+        for(let tmpT = lum.length-1; tmpT >= 0; tmpT--) {
+            tmp += lum[tmpT];
+        }
+        // lum = tmp;
         let lumLength = lum.length;
 
         var asciiStr = '';
@@ -113,21 +118,24 @@ function convertToASCII(fileURL) {
             data[i+1] = avg;
             data[i+2] = avg;
 
-            Line += lum[ Math.floor(avg/(256/lumLength)) ];
-            Line += lum[ Math.floor(avg/(256/lumLength)) ];
-            Line += lum[ Math.floor(avg/(256/lumLength)) ];
-
-            if(i % imageData.width == 0) {
+            for(let tmp = 0; tmp < 5; tmp++) {
+                Line += lum[ Math.floor(avg/(256/lumLength)) ];
+            }
+            
+            if(i % (imageData.width*4) == 0) {
                 Line += "\n";
-                asciiStr += Line;
+                for(let tmp = 0; tmp < 7; tmp++) {
+                    asciiStr += Line;
+                }
+
                 Line = '';
 
-            }            
+            }
         }
 
         let outputPTag = document.getElementById('output');
         outputPTag.innerHTML = asciiStr;
-        outputPTag.style.font = 2;
+        outputPTag.style.fontSize = '1px';
         console.log(asciiStr);
 
         ctx.putImageData(imageData,0,0);
